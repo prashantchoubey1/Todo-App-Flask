@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container-fluid my-3">
+    <h2>Add a Todo</h2>
+    <form action="/" method="POST">
+        <label for="title" class="form-label">Task</label>
+        <input type="text" name="title" class="form-control" id="title" placeholder="Add Tasks">
+</div>
+<div class="container-fluid">
+    <label for="desc" class="form-label">Description</label>
+    <input type="text" name="desc" class="form-control" id="desc" placeholder="Add description">
+    <div><button type="submit" class="btn btn-primary my-3">Submit</button></div>
+</div>
+
+</form>
+<div class="container-fluid my-3">
+    <h2 my-3>Your Todo</h2>
+    <table class="table">
+
+        <tbody>
+            {% if allTodo|length == 0 %}
+            <div class="alert alert-dark" role="alert">
+                No record found. Please add new records
+            </div>
+            {% else %}
+            <thead>
+                <tr>
+                    <th scope="col">Sr. No.</th>
+                    <th scope="col">Tasks</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead>
+            {% for todo in allTodo %}
+
+            <tr>
+
+                <td>{{loop.index}}</td>
+                <td>{{todo.title}}</td>
+                <td>{{todo.desc}}</td>
+                <td>{{todo.date_created}}</td>
+                <td><a href="/delete/{{todo.sno}}" type="submit" class="btn btn-light" name="delete">Delete</button>
+                </td>
+                <td><a href="/update/{{todo.sno}}" type="submit" class="btn btn-light" name="Update">Update</button>
+                </td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock body %}
